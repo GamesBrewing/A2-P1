@@ -44,7 +44,7 @@ int main() {
             printf ("Shield power level now at %d%%\n", shield_power);
             break;
             case 4:
-             printf ("Chewbacca: Adjusting shields...\n");
+             printf ("Leia: Adjusting shields...\n");
             shield_power = 65;
             printf ("Shield power level now at %d%%\n", shield_power);
             break;
