@@ -7,10 +7,12 @@
 int shield_power = 50;  
 
 int main() {
-    int n = 1;
+    
     pid_t pid;
 
-    printf("Millennium Falcon: Initial shield power level: %d%%\n\n", shield_power);
+    pid = fork();
+
+    //printf("Millennium Falcon: Initial shield power level: %d%%\n\n", shield_power);
 
     // Create 4 child processes - 4 different characters adjusting shield power
 
@@ -18,34 +20,50 @@ int main() {
             // Han increases the shield power by 20
             // Chewbacca increases the shield power by 30
             // Leia increases the shield power by 15
-    while (n<=4)
-    {
+    if (pid < 0) {    // Check if process creation failed
+        printf("Fork failed.\n");
+        return 1;
+    } else if (pid == 0) { //child process
+       int n = 1;
+       printf("Millennium Falcon: Initial shield power level: %d%%\n\n", shield_power);
+       while (n<=4)
+        {
         switch(n)
         {
             case 1:
-            fork();
-            if (pid < 0) { printf ("Fork failed"); return 1;}
             printf ("Luke: Adjusting shields...\n");
-            shield_power = 25;
+            shield_power = 75;
             printf ("Shield power level now at %d%%\n", shield_power);
             break;
-
+            case 2:
+             printf ("Han: Adjusting shields...\n");
+            shield_power = 70;
+            printf ("Shield power level now at %d%%\n", shield_power);
+            break;
             default:
             break;
+        }       
+
+        n +=1;
         }
+        } else if (pid>0){
+        // Parent process
+        printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
+        printf("\nMay the forks be with you!\n");
 
-        n++;
-    }    
+        // Wait for child
+        wait(NULL);  
+    }
+    
 
-    // Check if process creation failed
-        // -----> Write you code here 
+
+       
 
     // Make parent process wait for all child processes to complete
-        // -----> Write you code here 
     
 
     // Parent process reports final state
-    printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
-    printf("\nMay the forks be with you!\n");
+    //printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
+    //printf("\nMay the forks be with you!\n");
     return 0;
 }
