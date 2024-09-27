@@ -9,10 +9,8 @@ int shield_power = 50;
 int main() {
     
     pid_t pid;
-
+    int n = 1;
     pid = fork();
-
-    //printf("Millennium Falcon: Initial shield power level: %d%%\n\n", shield_power);
 
     // Create 4 child processes - 4 different characters adjusting shield power
 
@@ -40,30 +38,29 @@ int main() {
             shield_power = 70;
             printf ("Shield power level now at %d%%\n", shield_power);
             break;
+            case 3:
+             printf ("Chewbacca: Adjusting shields...\n");
+            shield_power = 80;
+            printf ("Shield power level now at %d%%\n", shield_power);
+            break;
+            case 4:
+             printf ("Chewbacca: Adjusting shields...\n");
+            shield_power = 65;
+            printf ("Shield power level now at %d%%\n", shield_power);
+            break;
             default:
             break;
         }       
 
         n +=1;
         }
-        } else if (pid>0){
+        } else {
         // Parent process
+        
+        wait(NULL);// Wait for child
         printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
         printf("\nMay the forks be with you!\n");
-
-        // Wait for child
-        wait(NULL);  
     }
     
-
-
-       
-
-    // Make parent process wait for all child processes to complete
-    
-
-    // Parent process reports final state
-    //printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
-    //printf("\nMay the forks be with you!\n");
     return 0;
 }
