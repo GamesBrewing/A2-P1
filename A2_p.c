@@ -7,6 +7,7 @@
 int shield_power = 50;  
 
 int main() {
+    int n = 1;
     pid_t pid;
 
     printf("Millennium Falcon: Initial shield power level: %d%%\n\n", shield_power);
@@ -17,14 +18,31 @@ int main() {
             // Han increases the shield power by 20
             // Chewbacca increases the shield power by 30
             // Leia increases the shield power by 15
-               
+    while (n<=4)
+    {
+        switch(n)
+        {
+            case 1:
+            fork();
+            if (pid < 0) { printf ("Fork failed"); return 1;}
+            printf ("Luke: Adjusting shields...\n");
+            shield_power = 25;
+            printf ("Shield power level now at %d%%\n", shield_power);
+            break;
+
+            default:
+            break;
+        }
+
+        n++;
+    }    
 
     // Check if process creation failed
         // -----> Write you code here 
 
     // Make parent process wait for all child processes to complete
         // -----> Write you code here 
-
+    
 
     // Parent process reports final state
     printf("\nFinal shield power level on the Millennium Falcon: %d%%\n", shield_power);
